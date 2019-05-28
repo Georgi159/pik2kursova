@@ -30,41 +30,56 @@ int main(/*int argc, char const *argv[]*/)
 
 	while(!feof(fp_config))
 	{
-		getdelim(&line1, &line1_size,' ',fp_config);
-		sscanf(line1, "%zu", &num);
+		size=getdelim(&line1, &line1_size,' ',fp_config);//read number of files
+		if (size == 0)
+		{
+			fprintf(stderr, "cant read number of elements in tests\n");
+			break;
+		}
+		else
+		{
+			if(sscanf(line1, "%zu", &num)<0)
+			{
+				fprintf(stderr, "error converting size of test\n");
+				break;
+			}
+		}
+		
 		// printf("%zu\n",num);
 
-		size=getline(&line1, &line1_size, fp_config);
+		size=getline(&line1, &line1_size, fp_config); //read name of test
 
 		if (size == 0)
 		{
+			fprintf(stderr, "cant read name of tests\n");
 			break;
 		}
 		else
 		{
 			if (line1[size-1]=='\n')
 			{
-				line1[size-1]='\0';
+				line1[size-1]='\0'; //remove new line
 			}
-			if (line1[0]=='#')
+			if (line1[0]=='#') //ignore comments
 			{
 				continue;
 			}
 		}
 		
-		size=getline(&line2, &line2_size, fp_config);
+		size=getline(&line2, &line2_size, fp_config); //read name of test file
 
 		if (size == 0)
 		{
+			fprintf(stderr, "cant read name of test file\n");
 			break;
 		}
 		else
 		{
-			if (line2[size-1]=='\n')
+			if (line2[size-1]=='\n') 
 			{
-				line2[size-1]='\0';
+				line2[size-1]='\0'; //remove new line
 			}
-			if (line2[0]=='#')
+			if (line2[0]=='#') //ignore comments
 			{
 				continue;
 			}
@@ -239,7 +254,6 @@ void free_algoritams_t(algoritam_t *alg, size_t num)
 	free(alg);
 
 }
-
 
 algoritam_t *sort(data_t input[],size_t num, char name[])
 {
