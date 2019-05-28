@@ -33,10 +33,10 @@
 
 #define SWAP(a,b)	do{ (a)=(a)^(b); (b)=(a)^(b); (a)=(a)^(b); }while(0)
 
+#define NUMBER_OF_FUCTIONS 4
 
 #define START_RECORDING_TIME timeStat_t stTime ;\
 	clock_gettime( CLOCK_REALTIME,&(stTime.begin))
-
 
 #define STOP_RECORDING_TIME do\
 {\
