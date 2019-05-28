@@ -2,6 +2,7 @@
  
 #define NUMBER_OF_FUCTIONS 4
 
+
 int main(/*int argc, char const *argv[]*/)
 {
 	FILE *fp_config=NULL;
@@ -116,6 +117,7 @@ int main(/*int argc, char const *argv[]*/)
 	if (alArrr != NULL)
 	{
 		print_to_file(alArrr);
+		print_best(alArrr);
 	}
 
 	sort(NULL, 0, NULL); //free memory
@@ -144,9 +146,6 @@ int test_sort(data_t arr[], size_t num)
 	return sorted;
 }
 
-
-
-// #define ALLOC_MEM_NAME(name) malloc(sizeof(char)* (strlen(name)));
 int initAlgoritams(algoritam_t *alArrr[],size_t num)
 {
 
@@ -170,13 +169,14 @@ int initAlgoritams(algoritam_t *alArrr[],size_t num)
 
 		if (tempAlArr[i].tests==NULL)
 		{
+			fprintf(stderr, "error alocating memory\n" );
 			return 2;
 		}
 	}
 
 
 	{
-	char name[]="merge_sort_not_rec";
+	char name[]="Merge sort not recursive";
 	tempAlArr[0].fuction=merge_sort_not_rec;
 	tempAlArr[0].nameOfalgoritam= malloc(sizeof(char)* (strlen(name))+1);
 	if (tempAlArr[0].nameOfalgoritam == NULL)
@@ -187,7 +187,7 @@ int initAlgoritams(algoritam_t *alArrr[],size_t num)
 	}
 
 	{
-	char name[]="shellsort";
+	char name[]="Shellsort";
 	tempAlArr[1].fuction=shellsort;
 	tempAlArr[1].nameOfalgoritam= malloc(sizeof(char)* (strlen(name))+1);
 	strcpy(tempAlArr[1].nameOfalgoritam, name);
@@ -198,7 +198,7 @@ int initAlgoritams(algoritam_t *alArrr[],size_t num)
 	}
 
 	{
-	char name[]="buble_sort";
+	char name[]="Bublesort";
 	tempAlArr[2].fuction=buble_sort;
 	tempAlArr[2].nameOfalgoritam= malloc(sizeof(char)* (strlen(name))+1);
 	if (tempAlArr[2].nameOfalgoritam == NULL)
@@ -208,7 +208,7 @@ int initAlgoritams(algoritam_t *alArrr[],size_t num)
 	strcpy(tempAlArr[2].nameOfalgoritam, name);
 	}
 	{
-	char name[]="quick_sort";
+	char name[]="Quicksort";
 	tempAlArr[3].fuction=quick_sort;
 	tempAlArr[3].nameOfalgoritam= malloc(sizeof(char)* (strlen(name))+1);
 	strcpy(tempAlArr[3].nameOfalgoritam, name);
@@ -248,9 +248,15 @@ algoritam_t *sort(data_t input[],size_t num, char name[])
 
 	if (alArrr == NULL && runed == 0)
 	{
-		if(initAlgoritams(&alArrr,NUMBER_OF_FUCTIONS))
+		int ret=0;
+		ret=initAlgoritams(&alArrr,NUMBER_OF_FUCTIONS);
+		if( ret == 1 || ret == 2 )
 		{
-			// *error=1;
+			return NULL;
+		}
+		if( ret == 3 )
+		{
+			fprintf(stderr, "error allocating space for names of algoritams\n" );	
 		}
 	}
 
@@ -260,7 +266,7 @@ algoritam_t *sort(data_t input[],size_t num, char name[])
 		free_algoritams_t(alArrr,NUMBER_OF_FUCTIONS);
 		return NULL;
 	}
-	runed =1;
+	runed = 1;
 
 	char *dName=NULL;
 	if (!name)
@@ -324,7 +330,7 @@ algoritam_t *sort(data_t input[],size_t num, char name[])
 
  		if (test_sort(data, num))
 		{
-			fprintf(stderr, "not:() sorted\n");
+			fprintf(stderr, "not sorted :)\n");
 		}
 
 		// for (size_t l = 0; l < num; ++l)		{printf("%lu\n", data[l]);}
@@ -337,34 +343,77 @@ algoritam_t *sort(data_t input[],size_t num, char name[])
 	return alArrr;
 }
 
-
-
 int print_to_file(algoritam_t alArrr[])
 {
 	FILE *fp=NULL;
+	int error=1;
 
 	fp=fopen("results.csv","w");
-
-	fprintf(fp,"\"Name of test/Name of algoritam\""); 
-
-	for (size_t i = 0; i < NUMBER_OF_FUCTIONS; ++i)
+	if ( fp == NULL )
 	{
-		fprintf(fp,",\"%s\"" ,alArrr[i].nameOfalgoritam); 
+		fprintf(stderr, "error openig file\n");
+		return 1;
 	}
-	fprintf(fp,"\n"); 
 
-	for (size_t k = 0; k < alArrr[0].numOfmadeTest; ++k)
+	do
 	{
-		fprintf(fp,"\"%s\"" ,alArrr[0].tests[k].nameOftest); 
+		error=fprintf(fp,"\"Name of test/Name of algoritam\""); 
+		if (error < 0) break;
+
 		for (size_t i = 0; i < NUMBER_OF_FUCTIONS; ++i)
 		{
-			fprintf(fp,",%.9lf" ,alArrr[i].tests[k].time); 
+			error=fprintf(fp,",\"%s\"" ,alArrr[i].nameOfalgoritam); 
+			if (error < 0) break;
 		}
-		fprintf(fp,"\n"); 
-	}
-	
-	fprintf(fp,"\n"); 
+		error=fprintf(fp,"\n"); 
+		if (error < 0) break;
+
+		for (size_t k = 0; k < alArrr[0].numOfmadeTest; ++k)
+		{
+			error=fprintf(fp,"\"%s\"" ,alArrr[0].tests[k].nameOftest); 
+			if (error < 0) break;
+
+			for (size_t i = 0; i < NUMBER_OF_FUCTIONS; ++i)
+			{
+				error=fprintf(fp,",%.9lf" ,alArrr[i].tests[k].time); 
+				if (error < 0) break;
+			}
+			error=fprintf(fp,"\n"); 
+			if (error < 0) break;
+		}
+	}while(0);
+	// fprintf(fp,"\n"); 
 	fclose(fp);
+	if (error < 0) return 2;
 	return 0;
 }
 
+
+int print_best(algoritam_t alArrr[])
+{
+	uint32_t numberOfbest[NUMBER_OF_FUCTIONS]={0};
+	uint32_t beast=0;
+	for (size_t k = 0; k < alArrr[0].numOfmadeTest; ++k)
+	{
+		for (size_t i = 0; i < NUMBER_OF_FUCTIONS - 1 ; ++i)
+		{
+			if (alArrr[i].tests[k].time < alArrr[i+1].tests[k].time)
+			{
+				beast=i+1;
+			}
+		}
+		numberOfbest[k]=beast;
+		beast=0;
+	}	
+
+	for (size_t i = 0; i < NUMBER_OF_FUCTIONS-1; ++i)
+	{
+		if (numberOfbest[i]< numberOfbest[i+1])
+		{
+			beast = i+1;
+		}
+	}
+
+	printf("This is the best : %s\nWith %u wins\n", alArrr[beast].nameOfalgoritam,numberOfbest[beast]);
+	return 0;
+}

@@ -66,7 +66,6 @@ typedef struct test
 {
 	double time;
 	char *nameOftest;
-
 }test_t;
 
 typedef struct algoritam
@@ -93,7 +92,7 @@ algoritam_t *sort(data_t input[],size_t num, char name[]);
 
 int initAlgoritams(algoritam_t *alArrr[],size_t num);
 
-int print_to_file(algoritam_t alArrr[]);
-
+int print_to_file (algoritam_t alArrr[]);
+int print_best	  (algoritam_t alArrr[]);
 
 #endif
