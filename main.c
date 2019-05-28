@@ -19,7 +19,7 @@ int main(/*int argc, char const *argv[]*/)
 	}
 
 
-	for (volatile int i = 0; i < 100000; ++i)
+	for (volatile int i = 0; i < 100000; ++i) //raise cpu clock
 	{
 		__asm__ __volatile__("");
 	}
@@ -119,12 +119,12 @@ int main(/*int argc, char const *argv[]*/)
 	}
 
 
-	if (line1)
+	if (line1 != NULL)
 	{
 		free(line1);
 	}
 	
-	if (line2)
+	if (line2 != NULL)
 	{
 		free(line2);
 	}
@@ -142,7 +142,6 @@ int main(/*int argc, char const *argv[]*/)
 		fclose(fp_config);
 	}
 	
-
 	return 0;
 }
 

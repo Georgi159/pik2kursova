@@ -88,7 +88,7 @@ double merge_sort_not_rec(data_t arr[], size_t num);
 
 int test_sort(data_t arr[], size_t num);
 
-algoritam_t *sort(data_t input[],size_t num, char name[]);
+algoritam_t *sort (data_t input[],size_t num, char name[]);
 
 int initAlgoritams(algoritam_t *alArrr[],size_t num);
 
