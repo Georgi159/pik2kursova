@@ -127,10 +127,9 @@ int main(/*int argc, char const *argv[]*/)
 
 	if (alArrr != NULL)
 	{
-		print_to_file(alArrr);
-		print_best(alArrr);
+		(void) print_to_file(alArrr);
+	  	(void) print_best(alArrr);
 	}
-
 	sort(NULL, 0, NULL); //free memory
 	
 	if (fp_config!=NULL)
