@@ -1,0 +1,10 @@
+120000 zeros
+tests/zero.dat
+# 8000 random number test
+# tests/testdata.dat
+# 80000 LESS
+# tests/testdata.dat
+# 12000 other random file
+# tests/test1.dat
+# 120000 other random file 2
+# tests/test2.dat
