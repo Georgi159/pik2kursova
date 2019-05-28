@@ -172,10 +172,7 @@ int initAlgoritams(algoritam_t *alArrr[],size_t num)
 	for (size_t i = 0; i < num; ++i)
 	{
 		tempAlArr[i].numOftest=20;
-		// tempAlArr[i].tests=NULL;
 		tempAlArr[i].tests=malloc(sizeof(test_t)*tempAlArr[0].numOftest);
-		// tempAlArr[i].nameOfalgoritam=NULL;
-
 		if (tempAlArr[i].tests==NULL)
 		{
 			fprintf(stderr, "error alocating memory\n" );
@@ -304,7 +301,7 @@ algoritam_t *sort(data_t input[],size_t num, char name[])
 
  	for (size_t i = 0; i < NUMBER_OF_FUCTIONS; ++i)
  	{
- 		puts("--------------------------------");
+ 		
  		if (alArrr[i].numOfmadeTest > alArrr[i].numOftest)
  		{
  			alArrr[i].numOftest*=2;
@@ -332,21 +329,19 @@ algoritam_t *sort(data_t input[],size_t num, char name[])
  		alArrr[i].tests[alArrr[i].numOfmadeTest].nameOftest=dName;
 		alArrr[i].numOfmadeTest++;
 
-		printf("Име на алгоритам %s\n",alArrr[i].nameOfalgoritam );
- 		printf("Име на test %s\n",alArrr[i].tests[alArrr[i].numOfmadeTest-1].nameOftest );
-		printf("\t%.10lf\n",alArrr[i].tests[alArrr[i].numOfmadeTest-1].time);
+		// puts("--------------------------------");
+		// printf("Име на алгоритам %s\n",alArrr[i].nameOfalgoritam );
+ 		// printf("Име на test %s\n",alArrr[i].tests[alArrr[i].numOfmadeTest-1].nameOftest );
+		// printf("\t%.10lf\n",alArrr[i].tests[alArrr[i].numOfmadeTest-1].time);
 
  		if (test_sort(data, num))
 		{
 			fprintf(stderr, "not sorted :)\n");
 		}
 
-		// for (size_t l = 0; l < num; ++l)		{printf("%lu\n", data[l]);}
-
 		memcpy(data,input,num*sizeof(data_t));
  	}
 
- 	// printf("\t%.10lf\n",alArrr[0].tests[0].time);
 	free(data);
 	return alArrr;
 }

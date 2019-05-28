@@ -7,11 +7,45 @@
             "-Wall",
             "-pedantic",
             "-Wextra",
+            "-fstack-protector-all",
             "-o",
-            "main.out",
+            "print.o",
+            "print.c"
+        ],
+        "directory": "/home/georgi/projects/PIK@/kursova_s_uslovie",
+        "file": "print.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-std=c11",
+            "-Wall",
+            "-pedantic",
+            "-Wextra",
+            "-fstack-protector-all",
+            "-o",
+            "main.o",
             "main.c"
         ],
         "directory": "/home/georgi/projects/PIK@/kursova_s_uslovie",
         "file": "main.c"
+    },
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-std=c11",
+            "-Wall",
+            "-pedantic",
+            "-Wextra",
+            "-fstack-protector-all",
+            "-O3",
+            "-o",
+            "sort.o",
+            "sort.c"
+        ],
+        "directory": "/home/georgi/projects/PIK@/kursova_s_uslovie",
+        "file": "sort.c"
     }
 ]
