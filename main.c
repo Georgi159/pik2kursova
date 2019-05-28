@@ -1,7 +1,7 @@
 #include "main.h"
  
-// #define ARR_SIZE 1000
-// #define ARR_SIZE 80E3
+#define NUMBER_OF_FUCTIONS 4
+
 int main(/*int argc, char const *argv[]*/)
 {
 	FILE *fp_config=NULL;
@@ -16,7 +16,7 @@ int main(/*int argc, char const *argv[]*/)
 		fprintf(stderr, "cant open config file exiting\n");
 		return 1;
 	}
-	
+
 
 	for (volatile int i = 0; i < 100000; ++i)
 	{
@@ -24,6 +24,8 @@ int main(/*int argc, char const *argv[]*/)
 	}
 
 	size_t size=0;
+
+	algoritam_t *alArrr=NULL;
 
 	while(!feof(fp_config))
 	{
@@ -67,8 +69,6 @@ int main(/*int argc, char const *argv[]*/)
 			}
 		}
 
-		// printf("%s\n%s\n",line1,line2 );
-
 		FILE *fp=NULL;
 		fp=fopen(line2,"r");
 		if (fp==NULL)
@@ -88,14 +88,13 @@ int main(/*int argc, char const *argv[]*/)
 			{
 				memset(input, 0, sizeof(data_t)*num);//valgrind
 
-				// printf("%lu %lu %lu\n", fread(input, sizeof(data_t), num, fp) ,sizeof(data_t),num);
 				if(fread(input, sizeof(data_t), num, fp) != num)
 				{
 					fprintf(stderr, "wrong size in config file\n skiping sort" );
 				}
 				else
 				{
-					sort(input,num, line1);
+					alArrr=sort(input,num, line1);
 				}	
 				free(input);
 			}	
@@ -113,12 +112,19 @@ int main(/*int argc, char const *argv[]*/)
 	{
 		free(line2);
 	}
-	
+
+	if (alArrr != NULL)
+	{
+		print_to_file(alArrr);
+	}
 
 	sort(NULL, 0, NULL); //free memory
 	
-
-	fclose(fp_config);
+	if (fp_config!=NULL)
+	{
+		fclose(fp_config);
+	}
+	
 
 	return 0;
 }
@@ -138,7 +144,7 @@ int test_sort(data_t arr[], size_t num)
 	return sorted;
 }
 
-#define NUMBER_OF_FUCTIONS 4
+
 
 // #define ALLOC_MEM_NAME(name) malloc(sizeof(char)* (strlen(name)));
 int initAlgoritams(algoritam_t *alArrr[],size_t num)
@@ -330,3 +336,35 @@ algoritam_t *sort(data_t input[],size_t num, char name[])
 	free(data);
 	return alArrr;
 }
+
+
+
+int print_to_file(algoritam_t alArrr[])
+{
+	FILE *fp=NULL;
+
+	fp=fopen("results.csv","w");
+
+	fprintf(fp,"\"Name of test/Name of algoritam\""); 
+
+	for (size_t i = 0; i < NUMBER_OF_FUCTIONS; ++i)
+	{
+		fprintf(fp,",\"%s\"" ,alArrr[i].nameOfalgoritam); 
+	}
+	fprintf(fp,"\n"); 
+
+	for (size_t k = 0; k < alArrr[0].numOfmadeTest; ++k)
+	{
+		fprintf(fp,"\"%s\"" ,alArrr[0].tests[k].nameOftest); 
+		for (size_t i = 0; i < NUMBER_OF_FUCTIONS; ++i)
+		{
+			fprintf(fp,",%.9lf" ,alArrr[i].tests[k].time); 
+		}
+		fprintf(fp,"\n"); 
+	}
+	
+	fprintf(fp,"\n"); 
+	fclose(fp);
+	return 0;
+}
+
