@@ -1,0 +1,17 @@
+[
+    {
+        "arguments": [
+            "gcc",
+            "-c",
+            "-std=c11",
+            "-Wall",
+            "-pedantic",
+            "-Wextra",
+            "-o",
+            "main.out",
+            "main.c"
+        ],
+        "directory": "/home/georgi/projects/PIK@/kursova_s_uslovie",
+        "file": "main.c"
+    }
+]
