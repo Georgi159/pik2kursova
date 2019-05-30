@@ -328,7 +328,7 @@ algoritam_t *sort(data_t input[],size_t num, char name[])
 
  		alArrr[i].tests[alArrr[i].numOfmadeTest].nameOftest=dName;
 		alArrr[i].numOfmadeTest++;
-
+		
 		// puts("--------------------------------");
 		// printf("Име на алгоритам %s\n",alArrr[i].nameOfalgoritam );
  		// printf("Име на test %s\n",alArrr[i].tests[alArrr[i].numOfmadeTest-1].nameOftest );

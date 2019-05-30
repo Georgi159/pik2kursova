@@ -4,6 +4,10 @@ int print_to_file(algoritam_t alArrr[])
 {
 	FILE *fp=NULL;
 	int error=1;
+	if (alArrr == NULL)
+	{
+		return 4;
+	}
 
 	fp=fopen("results.csv","w");
 	if ( fp == NULL )
