@@ -2,7 +2,6 @@
 
 int uint64_cmp(const void *a, const void *b) 
 { 
-   // return -(int64_t)(*( data_t*)a) +(int64_t)(*( data_t*)b); 
     if (*( data_t*)a >  *( data_t*)b)
     {
     	return 1;

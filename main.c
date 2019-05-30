@@ -1,6 +1,6 @@
 #include "main.h"
  
-int main(/*int argc, char const *argv[]*/)
+int main()
 {
 	FILE *fp_config=NULL;
 	char *line1 = NULL, *line2=NULL;
@@ -40,8 +40,6 @@ int main(/*int argc, char const *argv[]*/)
 				break;
 			}
 		}
-		
-		// printf("%zu\n",num);
 
 		size=getline(&line1, &line1_size, fp_config); //read name of test
 
@@ -179,7 +177,6 @@ int initAlgoritams(algoritam_t *alArrr[],size_t num)
 			return 2;
 		}
 	}
-
 
 	{
 	char name[]="Merge sort not recursive";
@@ -328,11 +325,6 @@ algoritam_t *sort(data_t input[],size_t num, char name[])
 
  		alArrr[i].tests[alArrr[i].numOfmadeTest].nameOftest=dName;
 		alArrr[i].numOfmadeTest++;
-		
-		// puts("--------------------------------");
-		// printf("Име на алгоритам %s\n",alArrr[i].nameOfalgoritam );
- 		// printf("Име на test %s\n",alArrr[i].tests[alArrr[i].numOfmadeTest-1].nameOftest );
-		// printf("\t%.10lf\n",alArrr[i].tests[alArrr[i].numOfmadeTest-1].time);
 
  		if (test_sort(data, num))
 		{

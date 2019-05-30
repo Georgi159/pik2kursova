@@ -4,15 +4,12 @@
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
-#include <setjmp.h> 
-
-#ifndef MAIN_LIB_1
-#define MAIN_LIB_1
-
 #include <stdio.h>
 #include <inttypes.h>
 #include <time.h>
 
+#ifndef MAIN_LIB_1
+#define MAIN_LIB_1
 
 #define SWAP(a,b)	do{ (a)=(a)^(b); (b)=(a)^(b); (a)=(a)^(b); }while(0)
 
@@ -44,7 +41,6 @@ typedef struct time_stat
 
 typedef uint64_t data_t;
 
-
 typedef struct test 
 {
 	double time;
@@ -59,23 +55,18 @@ typedef struct algoritam
 	size_t numOfmadeTest;
 	test_t *tests;
 }algoritam_t;
-
-
-
  
 double buble_sort(data_t arr[], size_t num);
 double shellsort (data_t arr[], size_t num);
 double quick_sort(data_t arr[], size_t num);
 double merge_sort_not_rec(data_t arr[], size_t num);
 
-
 int test_sort(data_t arr[], size_t num);
-
-algoritam_t *sort (data_t input[],size_t num, char name[]);
 
 int initAlgoritams(algoritam_t *alArrr[],size_t num);
 
 int print_to_file (algoritam_t alArrr[]);
 int print_best	  (algoritam_t alArrr[]);
+algoritam_t *sort (data_t input[],size_t num, char name[]);
 
 #endif

@@ -79,6 +79,6 @@ int print_best(algoritam_t alArrr[])
 	}
 
 	printf("This is the best : %s\nWith %u wins\n", alArrr[beast].nameOfalgoritam,numberOfbest[beast]);
-
+	
 	return 0;
 }
